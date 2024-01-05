@@ -1,0 +1,12 @@
+// .sequelizerc
+
+const path = require("path");
+
+const test = path.resolve("src/express/config", "config.js");
+
+module.exports = {
+    "config": path.resolve("src/express/config", "config.js"),
+    "models-path": path.resolve("src/express/models", "question.js"),
+    "seeders-path": path.resolve("db", "seeders"),
+    "migrations-path": path.resolve("db", "migrations"),
+};

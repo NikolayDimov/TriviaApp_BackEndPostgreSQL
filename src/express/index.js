@@ -15,14 +15,29 @@ app.get("/", (req, res) => {
 });
 
 // ROUTES
+// Fetch All Difficulties
 const difficultController = require("./conrollers/difficult-controller");
 app.get("/difficult", difficultController.findAll);
 
+// Fetch All Categories
 const categoryController = require("./conrollers/category-controller");
 app.get("/category", categoryController.findAll);
 
-const questionController = require("./conrollers/question-controller");
-app.get("/question", questionController.findAll);
+// Fetch All Questions
+const questionControllerAll = require("./conrollers/question-controller");
+app.get("/question", questionControllerAll.findAll);
+
+// Fetch All Questions By Categories and Difficulty - not shuffle
+const questionControllerByCategoryAndDifficulty = require("./conrollers/question-controller");
+app.get("/questionCategory", questionControllerByCategoryAndDifficulty.findAllByCategoryAndDifficulty);
+
+// Fetch All Questions By Categories and Difficulty - shuffle question and answers with lodash 
+const findAllQuestionByAnswers = require("./conrollers/question-controller");
+app.get("/questionAnswers", findAllQuestionByAnswers.findAllByAnswers);
+
+// Fetch All Questions By Categories and Difficulty - shuffle question with order: db.sequelize.random(), and answers with lodash
+const findAllQuestionByAnswersRandom = require("./conrollers/question-controller");
+app.get("/questionAnswersRandom", findAllQuestionByAnswersRandom.findAllByAnswersRandom);
 
 
 // PORT
