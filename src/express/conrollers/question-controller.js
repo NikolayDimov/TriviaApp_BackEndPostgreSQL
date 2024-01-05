@@ -32,15 +32,53 @@ exports.findAll = async (req, res) => {
   };
 
 
+//--------------------------------
+
+  // Fetch All Questions By Categories and Difficulty - Sort and Math.random()
+  exports.findAllByAnswersMath = async (req, res) => {
+    const { categoryId, difficultyId } = req.query;
+  
+    try {
+      // Validate category and difficulty
+      if (!categoryId || !difficultyId) {
+        return res.status(400).json({ result: null, errors: ['Category and difficulty are required.'] });
+      }
+  
+      // Fetch questions based on category and difficulty
+      const questions = await db.Question.findAll({
+        where: { categoryId, difficultyId },
+        attributes: ['id', 'question', 'categoryId', 'difficultyId', 'correctAnswer', 'incorrectAnswers'],
+      });
+  
+      // Randomize the order of questions
+      // const shuffledQuestions = lodash.shuffle(questions);
+      const shuffledQuestions = questions.sort(() => Math.random() - 0.5);
+  
+      // Randomize the order of answers in each question
+      const questionsWithRandomAnswers = shuffledQuestions.map(question => {
+        const allAnswers = [question.correctAnswer, ...question.incorrectAnswers];
+        //const randomizedAnswers = lodash.shuffle(allAnswers);
+        const randomizedAnswers = allAnswers.sort(() => Math.random() - 0.5);
+  
+        return {
+          ...question.get({ plain: true }),
+          answers: randomizedAnswers,
+        };
+      });
+  
+      res.status(200).json({ result: questionsWithRandomAnswers, errors: [] });
+    } catch (error) {
+      return res.status(500).json({ result: null, errors: [error.message] });
+    }
+  };
 
 
 
-
-  //------------------------------
+//------------------------------
 
   const lodash = require('lodash');
 
-  
+  // Fetch All Questions By Categories and Difficulty - shuffle question and answers with lodash 
   exports.findAllByAnswers = async (req, res) => {
     const { categoryId, difficultyId } = req.query;
   
@@ -58,11 +96,13 @@ exports.findAll = async (req, res) => {
   
       // Randomize the order of questions
       const shuffledQuestions = lodash.shuffle(questions);
+      // const shuffledQuestions = questions.sort(() => Math.random() - 0.5);
   
       // Randomize the order of answers in each question
       const questionsWithRandomAnswers = shuffledQuestions.map(question => {
         const allAnswers = [question.correctAnswer, ...question.incorrectAnswers];
         const randomizedAnswers = lodash.shuffle(allAnswers);
+        //const randomizedAnswers = allAnswers.sort(() => Math.random() - 0.5);
   
         return {
           ...question.get({ plain: true }),
@@ -78,8 +118,8 @@ exports.findAll = async (req, res) => {
   
 
 
-
-exports.findAllByAnswersRandom = async (req, res) => {
+// Fetch All Questions By Categories and Difficulty - shuffle question with order: db.sequelize.random(), and answers with lodash
+exports.findAllBySequelizeRandom = async (req, res) => {
   const { categoryId, difficultyId } = req.query;
 
   try {
