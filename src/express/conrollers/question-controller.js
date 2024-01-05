@@ -1,5 +1,6 @@
 const { db } = require("../db");
 const { validateData } = require("../schema/questions");
+const { validate, version } = require("uuid");
 
 /**
  * Retrieve all difficulty from the database
@@ -32,7 +33,7 @@ exports.findAll = async (req, res) => {
   };
 
 
-  const validateDifficulty = 
+
 //--------------------------------
 
   // Fetch All Questions By Categories and Difficulty - Sort and Math.random()
@@ -41,8 +42,12 @@ exports.findAll = async (req, res) => {
 
     try {
       // Validate category and difficulty
-      if (!categoryId || !difficultyId) {
-        return res.status(400).json({ result: null, errors: ['Category and difficulty are required.'] });
+      // if (!categoryId || !difficultyId) {
+      //   return res.status(400).json({ result: null, errors: ['Category and difficulty are required.'] });
+      // }
+
+      if(!validate(categoryId) || !validate(difficultyId)) {
+        return res.status(400).json({ result: null, errors: ['Not validate'] });
       }
      
       // Validate category and difficulty from db
@@ -59,14 +64,12 @@ exports.findAll = async (req, res) => {
         attributes: ['id', 'question', 'categoryId', 'difficultyId', 'correctAnswer', 'incorrectAnswers'],
       });
   
-      // Randomize the order of questions
-      // const shuffledQuestions = lodash.shuffle(questions);
+      // Questions shuffle
       const shuffledQuestions = questions.sort(() => Math.random() - 0.5);
   
-      // Randomize the order of answers in each question
+      // Answers in each question shuffle
       const questionsWithRandomAnswers = shuffledQuestions.map(question => {
         const allAnswers = [question.correctAnswer, ...question.incorrectAnswers];
-        //const randomizedAnswers = lodash.shuffle(allAnswers);
         const randomizedAnswers = allAnswers.sort(() => Math.random() - 0.5);
   
         return {
