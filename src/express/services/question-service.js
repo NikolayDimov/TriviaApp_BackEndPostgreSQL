@@ -1,6 +1,6 @@
 const { db } = require("../db");
 const { validateData } = require("../schema/questions");
-const { validate, version } = require("uuid");
+const { validate } = require("uuid");
 
 /**
  * Retrieve all difficulty from the database
@@ -41,7 +41,7 @@ exports.findAll = async (req, res) => {
     const { categoryId, difficultyId } = req.query;
 
     try {
-      // Validate category and difficulty
+      // Simple Validate category and difficulty
       // if (!categoryId || !difficultyId) {
       //   return res.status(400).json({ result: null, errors: ['Category and difficulty are required.'] });
       // }
@@ -83,6 +83,10 @@ exports.findAll = async (req, res) => {
       return res.status(500).json({ result: null, errors: [error.message] });
     }
   };
+
+
+
+
 
 
 

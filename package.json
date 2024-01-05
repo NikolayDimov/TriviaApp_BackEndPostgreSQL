@@ -2,12 +2,11 @@
   "name": "js",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "type": "commonjs",
   "scripts": {
     "prestart:express": "sequelize db:migrate && sequelize db:seed:all --debug",
-    "start:express": "nodemon ./src/express/index.js",
-    "start": "nodemon ./src/express/index.js"
+    "start:express": "nodemon ./src/express/app.js"
   },
   "repository": {
     "type": "git",
