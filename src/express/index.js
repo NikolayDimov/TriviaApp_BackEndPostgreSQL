@@ -33,15 +33,15 @@ app.get("/questionCategory", questionControllerByCategoryAndDifficulty.findAllBy
 
 // Fetch All Questions By Categories and Difficulty - random by Math.random
 const findAllByAnswersMath = require("./conrollers/question-controller");
-app.get("/questionAnswersRandom", findAllByAnswersMath.findAllByAnswersMath);
+app.get("/questionAnswersM", findAllByAnswersMath.findAllAnswersByMathRandom);
 
 // Fetch All Questions By Categories and Difficulty - shuffle question and answers with lodash 
 const findAllQuestionByAnswers = require("./conrollers/question-controller");
-app.get("/questionAnswers", findAllQuestionByAnswers.findAllByAnswers);
+app.get("/questionAnswersL", findAllQuestionByAnswers.findAllAnswersByLodash);
 
 // Fetch All Questions By Categories and Difficulty - shuffle question with order: db.sequelize.random(), and answers with lodash
 const findAllBySequelizeRandom = require("./conrollers/question-controller");
-app.get("/questionSequilzeRandom", findAllBySequelizeRandom.findAllBySequelizeRandom);
+app.get("/questionAnswersS", findAllBySequelizeRandom.findAllAnswersBySequelize);
 
 
 // PORT

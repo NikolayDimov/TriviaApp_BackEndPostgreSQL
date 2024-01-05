@@ -32,16 +32,25 @@ exports.findAll = async (req, res) => {
   };
 
 
+  const validateDifficulty = 
 //--------------------------------
 
   // Fetch All Questions By Categories and Difficulty - Sort and Math.random()
-  exports.findAllByAnswersMath = async (req, res) => {
+  exports.findAllAnswersByMathRandom = async (req, res) => {
     const { categoryId, difficultyId } = req.query;
-  
+
     try {
       // Validate category and difficulty
       if (!categoryId || !difficultyId) {
         return res.status(400).json({ result: null, errors: ['Category and difficulty are required.'] });
+      }
+     
+      // Validate category and difficulty from db
+      const validateDifficulty = await db.Difficulty.findByPk(difficultyId);
+      const validateCategory = await db.Category.findByPk(categoryId);
+     
+       if (!validateDifficulty || !validateCategory) {
+        return res.status(400).json({ result: null, errors: ['Category and difficulty are not correct.'] });
       }
   
       // Fetch questions based on category and difficulty
@@ -79,13 +88,21 @@ exports.findAll = async (req, res) => {
   const lodash = require('lodash');
 
   // Fetch All Questions By Categories and Difficulty - shuffle question and answers with lodash 
-  exports.findAllByAnswers = async (req, res) => {
+  exports.findAllAnswersByLodash = async (req, res) => {
     const { categoryId, difficultyId } = req.query;
   
     try {
       // Validate category and difficulty
       if (!categoryId || !difficultyId) {
         return res.status(400).json({ result: null, errors: ['Category and difficulty are required.'] });
+      }
+
+      // Validate category and difficulty from db
+      const validateDifficulty = await db.Difficulty.findByPk(difficultyId);
+      const validateCategory = await db.Category.findByPk(categoryId);
+     
+       if (!validateDifficulty || !validateCategory) {
+        return res.status(400).json({ result: null, errors: ['Category and difficulty are not correct.'] });
       }
   
       // Fetch questions based on category and difficulty
@@ -119,7 +136,7 @@ exports.findAll = async (req, res) => {
 
 
 // Fetch All Questions By Categories and Difficulty - shuffle question with order: db.sequelize.random(), and answers with lodash
-exports.findAllBySequelizeRandom = async (req, res) => {
+exports.findAllAnswersBySequelize = async (req, res) => {
   const { categoryId, difficultyId } = req.query;
 
   try {
@@ -127,6 +144,14 @@ exports.findAllBySequelizeRandom = async (req, res) => {
     if (!categoryId || !difficultyId) {
       return res.status(400).json({ result: null, errors: ['Category and difficulty are required.'] });
     }
+
+     // Validate category and difficulty from db
+     const validateDifficulty = await db.Difficulty.findByPk(difficultyId);
+     const validateCategory = await db.Category.findByPk(categoryId);
+    
+      if (!validateDifficulty || !validateCategory) {
+       return res.status(400).json({ result: null, errors: ['Category and difficulty are not correct.'] });
+     }
 
     // Fetch questions based on category and difficulty with random order
     const questions = await db.Question.findAll({
