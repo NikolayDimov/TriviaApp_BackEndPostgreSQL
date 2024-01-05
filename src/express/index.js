@@ -31,7 +31,7 @@ app.get("/question", questionControllerAll.findAll);
 const questionControllerByCategoryAndDifficulty = require("./conrollers/question-controller");
 app.get("/questionCategory", questionControllerByCategoryAndDifficulty.findAllByCategoryAndDifficulty);
 
-// Fetch All Questions By Categories and Difficulty - random by Math.random
+// Fetch All Questions By Categories and Difficulty - shuffle question by Math.random
 const findAllByAnswersMath = require("./conrollers/question-controller");
 app.get("/questionAnswersM", findAllByAnswersMath.findAllAnswersByMathRandom);
 
