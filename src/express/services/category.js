@@ -1,9 +1,6 @@
 const { db } = require("../db");
 const { validateData } = require("../schema/category");
 
-
-
-
 /**
  * Retrieve all difficulty from the database
  * @param {import('express').Request} req

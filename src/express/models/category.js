@@ -39,6 +39,18 @@ module.exports = (sequelize) => {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
+            created: {
+                type: DataTypes.DATE,
+                allowNull: true
+            },
+            updated: {
+                type: DataTypes.DATE,
+                allowNull: true
+            },
+            deleted: {
+                type: DataTypes.DATE,
+                allowNull: false
+            }
         },
         {
             tableName: "Category",

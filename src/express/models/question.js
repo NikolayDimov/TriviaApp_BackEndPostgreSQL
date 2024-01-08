@@ -18,11 +18,30 @@ module.exports = (sequelize) => {
                 type: DataTypes.UUID,
                 allowNull: false,
             },
-            question: DataTypes.STRING,
-            correctAnswer: DataTypes.STRING,
-            incorrectAnswers: DataTypes.ARRAY(DataTypes.STRING),
-            created: DataTypes.DATE,
-            updated: DataTypes.DATE,
+            question: {
+                type: DataTypes.STRING, 
+                allowNull: false
+            },
+            correctAnswer: {
+                type: DataTypes.STRING, 
+                allowNull: false
+            },
+            incorrectAnswers: {
+                type: DataTypes.ARRAY(DataTypes.STRING),
+                allowNull: false
+             },
+            created: {
+                type: DataTypes.DATE,
+                allowNull: true
+            },
+            updated: {
+                type: DataTypes.DATE,
+                allowNull: true
+            },
+            deleted: {
+                type: DataTypes.DATE,
+                allowNull: false
+            }
         },
         {
             tableName: "Question",

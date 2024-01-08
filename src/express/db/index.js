@@ -24,7 +24,7 @@ sequelize
 
 const db = {
     sequelize: sequelize,
-    Difficulty: require("../models/difficult")(sequelize),
+    Difficulty: require("../models/difficulty")(sequelize),
     Category: require("../models/category")(sequelize),
     Question: require("../models/question")(sequelize),
 };

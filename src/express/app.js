@@ -1,8 +1,8 @@
 const express = require("express");
 const { db } = require("./db"); // Import the database connection
-const categoryRoutes = require("./controllers/category-controller");
-const difficultyRoutes = require("./controllers/difficult-controller");
-const questionRoutes = require("./controllers/question-controller");
+const categoryRoutes = require("./controllers/category");
+const difficultyRoutes = require("./controllers/difficulty");
+const questionRoutes = require("./controllers/question");
 
 
 

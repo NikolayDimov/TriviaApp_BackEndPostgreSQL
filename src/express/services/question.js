@@ -61,7 +61,7 @@ exports.findAll = async (req, res) => {
       // Fetch questions based on category and difficulty
       const questions = await db.Question.findAll({
         where: { categoryId, difficultyId },
-        attributes: ['id', 'question', 'categoryId', 'difficultyId', 'correctAnswer', 'incorrectAnswers'],
+        // attributes: ['id', 'question', 'categoryId', 'difficultyId', 'correctAnswer', 'incorrectAnswers'],
       });
   
       // Questions shuffle
@@ -115,7 +115,7 @@ exports.findAll = async (req, res) => {
       // Fetch questions based on category and difficulty
       const questions = await db.Question.findAll({
         where: { categoryId, difficultyId },
-        attributes: ['id', 'question', 'categoryId', 'difficultyId', 'correctAnswer', 'incorrectAnswers'],
+        // attributes: ['id', 'question', 'categoryId', 'difficultyId', 'correctAnswer', 'incorrectAnswers'],
       });
   
       // Randomize the order of questions
@@ -163,7 +163,7 @@ exports.findAllAnswersBySequelize = async (req, res) => {
     // Fetch questions based on category and difficulty with random order
     const questions = await db.Question.findAll({
       where: { categoryId, difficultyId },
-      attributes: ['id', 'question', 'categoryId', 'difficultyId', 'correctAnswer', 'incorrectAnswers'],
+      // attributes: ['id', 'question', 'categoryId', 'difficultyId', 'correctAnswer', 'incorrectAnswers'],
       order: db.sequelize.random(),
     });
 
